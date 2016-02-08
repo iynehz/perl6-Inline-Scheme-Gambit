@@ -1,4 +1,4 @@
-# Inline::Lua
+# Inline::Scheme::Gambit
 
 This is a Perl 6 module which allows execution of Gambit Scheme code from
 Perl 6 code with inspiration from other Inline:: modules like
