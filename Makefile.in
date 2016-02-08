@@ -1,0 +1,20 @@
+.PHONY: clean test
+
+export GAMBCOMP_VERBOSE=yes
+
+all: %DESTDIR%/resources/libraries/%gambithelper%
+
+OBJS = gambithelper.o gambithelper_.o gambithelper_wrapper.o
+
+clean:
+	rm -rf %DESTDIR%/resources/libraries/%gambithelper% $(OBJS) gambithelper.c gambithelper_.c
+
+$(OBJS): gambithelper_wrapper.c gambithelper.scm
+	%GSC% -link -o gambithelper_.c gambithelper.scm
+	%GSC% -cc-options -D___SHARED -obj gambithelper.c gambithelper_.c gambithelper_wrapper.c
+
+%DESTDIR%/resources/libraries/%gambithelper%: $(OBJS)
+	%CC% -shared -o $@ %LIBS% $(OBJS) %MYEXTLIB%
+
+test: all
+	prove -e 'perl6 -Ilib' t
