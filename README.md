@@ -60,7 +60,7 @@ do better on scheme list/vector/procedure/etc.
 ## Install
 
 The author does static linking to the default libgambit.a on his Linux
-distribution, and present Build.pm and Makefile.in is somewhat ad-hoc.
+distribution, and at present Build.pm and Makefile.in is somewhat ad-hoc.
 You may need to modify those files for this module to build on your
 machine. 
 
