@@ -85,7 +85,7 @@ Calls the named function with @args, and returns any resulting value.
 
 ## Contact
 
-https://github.com/zhouzhen1/Inline-Scheme-Gambit
+https://github.com/zhouzhen1/perl6-Inline-Scheme-Gambit
 
 zhouzhen1@gmail.com
 
