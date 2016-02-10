@@ -10,6 +10,7 @@ is $gambit.run('#t'), True;
 is $gambit.run('#f'), False;
 is $gambit.run('0'), 0;
 is $gambit.run('5'), 5;
+is $gambit.run('1/3'), 1/3;
 is $gambit.run('5.5'), 5.5;
 is $gambit.run('"gambit-c"'), 'gambit-c';
 is $gambit.run(q{(cons "foo" "bar")}), ("foo" => "bar");

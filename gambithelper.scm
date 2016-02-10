@@ -22,6 +22,8 @@
 
 (gambit-type-check gambit-boolean-check "gambit_boolean_check" boolean?)
 (gambit-type-check gambit-integer-check "gambit_integer_check" integer?)
+(gambit-type-check gambit-rational-check "gambit_rational_check" rational?)
+(gambit-type-check gambit-exact-check "gambit_exact_check" exact?)
 (gambit-type-check gambit-number-check "gambit_number_check" number?)
 (gambit-type-check gambit-string-check "gambit_string_check" string?)
 (gambit-type-check gambit-list-check "gambit_list_check" list?)
@@ -47,6 +49,7 @@
 (gambit-ctype-to-scheme gambit-integer-to-scheme "gambit_integer_to_scheme" long)
 (gambit-ctype-to-scheme gambit-number-to-scheme "gambit_number_to_scheme" double)
 (gambit-ctype-to-scheme gambit-string-to-scheme "gambit_string_to_scheme" char-string)
+
 
 (c-define (gambit-make-table) () scheme-object
     "gambit_make_table" "extern"

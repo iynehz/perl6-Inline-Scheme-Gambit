@@ -35,7 +35,8 @@ following table.
     Gambit-C        from Perl                           to Perl
     boolean         Bool                                Bool
     integer         Int                                 long
-    number          Num,Rat                             Num
+    number(exact)   Rat                                 Rat
+    number(inexact) Num                                 Num
     string          Stringy                             Str
     list            Positional                          Array            
     table           Associative                         Hash            

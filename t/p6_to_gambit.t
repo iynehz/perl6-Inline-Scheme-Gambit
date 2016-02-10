@@ -9,7 +9,7 @@ my $gambit = Inline::Scheme::Gambit.new();
 $gambit.run(q{(define (identity x) x)});
 
 for (   True, False, 
-        5, 5.5e0,
+        0, 5, 1/3, 5.5e0,
         "gambit-c",
         [1, 2, [3, "hello"], "world"],
         { 1 => "foo", "bar" => "baz" }

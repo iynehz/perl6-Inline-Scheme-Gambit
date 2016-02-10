@@ -34,6 +34,14 @@ sub gambit_string_check(OpaquePointer)
     returns bool { ... }
     native(&gambit_string_check);
 
+sub gambit_rational_check(OpaquePointer) 
+    returns bool { ... }
+    native(&gambit_rational_check);
+
+sub gambit_exact_check(OpaquePointer) 
+    returns bool { ... }
+    native(&gambit_exact_check);
+
 sub gambit_number_check(OpaquePointer) 
     returns bool { ... }
     native(&gambit_number_check);
@@ -148,6 +156,12 @@ method gambit_vector_as_array(OpaquePointer $gambit_vec) {
     return $array;
 }
 
+method gambit_exact_as_rat(OpaquePointer $gambit_exact) {
+    my $denom = self.call("denominator", $gambit_exact);
+    my $num = self.call("numerator", $gambit_exact);
+    return Rat.new($num, $denom);
+}
+
 method gambit_list_as_array(OpaquePointer $gambit_lst) {
     return self.gambit_vector_as_array(gambit_list_to_vector($gambit_lst));
 }
@@ -168,7 +182,11 @@ method gambit_to_p6(OpaquePointer $value) {
         return gambit_integer_as_long($value);
     }
     elsif (gambit_number_check($value)) {
-        return gambit_number_as_double($value);
+        if gambit_exact_check($value) {
+            return self.gambit_exact_as_rat($value);
+        } else {
+            return gambit_number_as_double($value);
+        }
     }
     elsif (gambit_string_check($value)) {
         return gambit_string_as_string($value);
@@ -203,7 +221,8 @@ multi method p6_to_gambit(Num:D $value) returns OpaquePointer {
 }
 
 multi method p6_to_gambit(Rat:D $value) returns OpaquePointer {
-    gambit_number_to_scheme($value);
+    gambit_apply(self.p6_to_gambit("/"),
+            self.p6_to_gambit([$value.numerator, $value.denominator]));
 }
 
 multi method p6_to_gambit(Stringy:D $value) returns OpaquePointer {
