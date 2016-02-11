@@ -38,6 +38,10 @@ sub gambit_rational_check(OpaquePointer)
     returns bool { ... }
     native(&gambit_rational_check);
 
+sub gambit_complex_check(OpaquePointer) 
+    returns bool { ... }
+    native(&gambit_complex_check);
+
 sub gambit_exact_check(OpaquePointer) 
     returns bool { ... }
     native(&gambit_exact_check);
@@ -156,10 +160,16 @@ method gambit_vector_as_array(OpaquePointer $gambit_vec) {
     return $array;
 }
 
-method gambit_exact_as_rat(OpaquePointer $gambit_exact) {
-    my $denom = self.call("denominator", $gambit_exact);
-    my $num = self.call("numerator", $gambit_exact);
+method gambit_rational_as_rat(OpaquePointer $gambit_val) {
+    my $denom = self.call("denominator", $gambit_val);
+    my $num = self.call("numerator", $gambit_val);
     return Rat.new($num, $denom);
+}
+
+method gambit_number_as_complex(OpaquePointer $gambit_val) {
+    my $re = self.call("real-part", $gambit_val);
+    my $im = self.call("imag-part", $gambit_val);
+    return Complex.new($re, $im);
 }
 
 method gambit_list_as_array(OpaquePointer $gambit_lst) {
@@ -178,14 +188,19 @@ method gambit_to_p6(OpaquePointer $value) {
     if gambit_boolean_check($value) {
         return gambit_boolean_as_bool($value).Bool;
     }
-    if gambit_integer_check($value) {
-        return gambit_integer_as_long($value);
-    }
     elsif (gambit_number_check($value)) {
-        if gambit_exact_check($value) {
-            return self.gambit_exact_as_rat($value);
+        if (gambit_rational_check($value)) {
+            if gambit_exact_check($value) {
+                if gambit_integer_check($value) {
+                    return gambit_integer_as_long($value);
+                } else {
+                    return self.gambit_rational_as_rat($value);
+                }
+            } else {
+                return gambit_number_as_double($value);
+            }
         } else {
-            return gambit_number_as_double($value);
+            return self.gambit_number_as_complex($value);
         }
     }
     elsif (gambit_string_check($value)) {
@@ -216,13 +231,18 @@ multi method p6_to_gambit(Int:D $value) returns OpaquePointer {
     gambit_integer_to_scheme($value);
 }
 
+multi method p6_to_gambit(Rat:D $value) returns OpaquePointer {
+    gambit_apply(self.p6_to_gambit("/"),
+            self.p6_to_gambit([$value.numerator, $value.denominator]));
+}
+
 multi method p6_to_gambit(Num:D $value) returns OpaquePointer {
     gambit_number_to_scheme($value);
 }
 
-multi method p6_to_gambit(Rat:D $value) returns OpaquePointer {
-    gambit_apply(self.p6_to_gambit("/"),
-            self.p6_to_gambit([$value.numerator, $value.denominator]));
+multi method p6_to_gambit(Complex:D $value) returns OpaquePointer {
+    gambit_apply(self.p6_to_gambit("make-rectangular"),
+            self.p6_to_gambit([$value.re, $value.im]));
 }
 
 multi method p6_to_gambit(Stringy:D $value) returns OpaquePointer {

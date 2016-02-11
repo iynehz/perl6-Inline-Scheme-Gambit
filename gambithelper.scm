@@ -23,6 +23,7 @@
 (gambit-type-check gambit-boolean-check "gambit_boolean_check" boolean?)
 (gambit-type-check gambit-integer-check "gambit_integer_check" integer?)
 (gambit-type-check gambit-rational-check "gambit_rational_check" rational?)
+(gambit-type-check gambit-complex-check "gambit_complex_check" complex?)
 (gambit-type-check gambit-exact-check "gambit_exact_check" exact?)
 (gambit-type-check gambit-number-check "gambit_number_check" number?)
 (gambit-type-check gambit-string-check "gambit_string_check" string?)

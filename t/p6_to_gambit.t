@@ -8,8 +8,11 @@ my $gambit = Inline::Scheme::Gambit.new();
 
 $gambit.run(q{(define (identity x) x)});
 
+for (   0, 5, 1/3, 1.0, 5.5e0, 1+2i,
+    ) -> $obj {
+    cmp-ok $gambit.call('identity', $obj), '==', $obj, "Can round-trip " ~ $obj.^name;
+}
 for (   True, False, 
-        0, 5, 1/3, 5.5e0,
         "gambit-c",
         [1, 2, [3, "hello"], "world"],
         { 1 => "foo", "bar" => "baz" }
