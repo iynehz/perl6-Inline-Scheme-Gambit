@@ -1,4 +1,4 @@
-# Inline::Scheme::Gambit
+# Inline::Scheme::Gambit [![Build Status](https://travis-ci.org/zhouzhen1/perl6-Inline-Scheme-Gambit.svg?branch=master)](https://travis-ci.org/zhouzhen1/perl6-Inline-Scheme-Gambit)
 
 This is a Perl 6 module which allows execution of Gambit Scheme code from
 Perl 6 code with inspiration from other Inline:: modules like
