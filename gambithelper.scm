@@ -13,10 +13,12 @@
 
 (c-define (gambit-apply func args) (scheme-object scheme-object) scheme-object
     "gambit_apply" "extern"
-    (apply
-     (if (string? func)
-      (eval (string->symbol func)) func)
-     args))
+    (with-exception-catcher
+        (lambda (exc) (make-gambit-exception-wrapper exc))
+        (lambda () (apply
+         (if (string? func)
+          (eval (string->symbol func)) func)
+         args))))
 
 (c-define (gambit-null) () scheme-object
     "gambit_null" "extern"
