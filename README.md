@@ -24,26 +24,26 @@ Inline::Python, Inline::Lua, Inline::Scheme::Guile, etc.
 
 ## Status
 
-Testing has only been done under Rakudo MoarVM on x86-64 Linux and
-Gambit-C 4.8.3, although other combinations may also work. 
+Testing has only been done under Rakudo MoarVM on x86-64 Linux. It requires
+Gambit-C 4, and Gambit-C 4.8.3 and 4.2.8 have been tested by the author. 
 
 Values can be passed to and returned from Gambit-C. Simple types
 like boolean, integer, number, string, list, table, vector should
 work. Present mapping between Gambit-C and Perl 6 types is as
 following table. 
 
-    Gambit-C        from Perl                           to Perl
-    boolean         Bool                                Bool
-    integer(exact)  Int                                 Int
-    number(exact)   Rat                                 Rat
-    number(inexact) Num                                 Num
-    complex         Complex                             Complex
-    string          Stringy                             Str
-    list            Positional                          Array            
-    table           Associative                         Hash            
+    Gambit-C            from Perl                       to Perl
+    boolean             Bool                            Bool
+    integer(exact)      Int                             Int
+    rational(exact)     Rat                             Rat
+    rational(inexact)   Num                             Num
+    complex             Complex                         Complex
+    string              Stringy                         Str
+    list                Positional                      Array            
+    table               Associative                     Hash            
     vector                                              Array
     procedure                                           OpaquePointer
-    other objects   OpaquePointer                       OpaquePointer
+    other objects       OpaquePointer                   OpaquePointer
 
 Note that at present both scheme list and vector converts to Array
 in Perl 6, but through the call() method (see below) Perl 6 Array only
@@ -61,10 +61,22 @@ do better on scheme list/vector/procedure/etc.
 
 ## Install
 
-The author does static linking to the default libgambit.a on his Linux
-distribution, and at present Build.pm and Makefile.in is somewhat ad-hoc.
-You may need to modify those files for this module to build on your
-machine. 
+    panda install Inline::Scheme::Gambit
+
+It by default tries to use 'gsc-script' or 'gsc' as the gsc command,
+and dynamically link to libgambc.so. It supports several environment
+variables to override the default behavior. 
+
+For example to override gsc in case 'gsc-script' or 'gsc' is not in
+PATH, or 'gsc-script' is an incorrect symlink. 
+
+    GSC=/usr/bin/gsc panda install Inline::Scheme::Gambit
+
+Or if you would like to static link to some libgambit.a
+
+    LIBS=-lutil MYEXTLIB=/usr/lib/gambit-c/libgambit.a panda install Inline::Scheme::Gambit
+
+You can refer to Makefile.in and Build.pm to know more details.
 
 ## Usage
 
