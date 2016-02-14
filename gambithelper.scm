@@ -1,8 +1,14 @@
+(define-structure gambit-exception-wrapper exception)
+
+(c-define (gambit-exception-wrapper-display exc) (scheme-object) char-string
+    "gambit_exception_wrapper_display" "extern"
+    (with-output-to-string '()
+     (lambda () (display-exception (gambit-exception-wrapper-exception exc)))))
 
 (c-define (gambit-eval p) (char-string) scheme-object
     "gambit_eval" "extern"
     (with-exception-catcher
-        (lambda (e) (write e) #f)
+        (lambda (exc) (make-gambit-exception-wrapper exc))
         (lambda () (eval (with-input-from-string p read)))))
 
 (c-define (gambit-apply func args) (scheme-object scheme-object) scheme-object
@@ -32,6 +38,7 @@
 (gambit-type-check gambit-pair-check "gambit_pair_check" pair?)
 (gambit-type-check gambit-table-check "gambit_table_check" table?)
 (gambit-type-check gambit-procedure-check "gambit_procedure_check" procedure?)
+(gambit-type-check gambit-exception-wrapper-check "gambit_exception_wrapper_check" gambit-exception-wrapper?)
 
 (define-macro (gambit-type-as-ctype sname cname ctype)
  `(c-define (,sname val) (scheme-object) ,ctype

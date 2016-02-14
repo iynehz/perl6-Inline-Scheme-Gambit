@@ -74,6 +74,14 @@ sub gambit_pair_check(OpaquePointer)
     returns bool { ... }
     native(&gambit_pair_check);
 
+sub gambit_exception_wrapper_check(OpaquePointer) 
+    returns bool { ... }
+    native(&gambit_exception_wrapper_check);
+
+sub gambit_exception_wrapper_display(OpaquePointer) 
+    returns Str { ... }
+    native(&gambit_exception_wrapper_display);
+
 
 sub gambit_cons(OpaquePointer, OpaquePointer) 
     returns OpaquePointer { ... }
@@ -143,6 +151,7 @@ sub gambit_number_to_scheme(num64)
 sub gambit_string_to_scheme(Str)
     returns OpaquePointer { ... }
     native(&gambit_string_to_scheme);
+
 
 method gambit_pair_as_pair(OpaquePointer $gambit_pair) {
     my $key = self.gambit_to_p6(gambit_car($gambit_pair));
@@ -275,8 +284,19 @@ multi method p6_to_gambit(Any:U $value) returns OpaquePointer {
     return gambit_null();
 }
 
+multi method handle_exception(OpaquePointer:D $res) {
+    if (gambit_exception_wrapper_check($res)) {
+        die gambit_exception_wrapper_display($res);
+    }
+}
+
+multi method handle_exception(Any:U $res) {
+    ;
+}
+
 method run(Str:D $code, **@args) {
     my $res = gambit_eval($code);
+    self.handle_exception($res);
     return self.gambit_to_p6($res);
 }
 
@@ -288,6 +308,7 @@ multi method call(Str:D $funcname, **@args) {
 multi method call(OpaquePointer:D $gambit_func, **@args) {
     my $gambit_args = self.p6_to_gambit(@args);
     my $res = gambit_apply($gambit_func, $gambit_args);
+    self.handle_exception($res);
     return self.gambit_to_p6($res);
 }
 
