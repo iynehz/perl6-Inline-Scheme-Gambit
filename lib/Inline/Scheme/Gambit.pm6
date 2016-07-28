@@ -300,6 +300,10 @@ method run(Str:D $code, **@args) {
     return self.gambit_to_p6($res);
 }
 
+method eval(**@args) {
+    self.run(|@args);
+}
+
 multi method call(Str:D $funcname, **@args) {
     my $func = self.p6_to_gambit($funcname);
     return self.call($func, |@args);
@@ -310,6 +314,10 @@ multi method call(OpaquePointer:D $gambit_func, **@args) {
     my $res = gambit_apply($gambit_func, $gambit_args);
     self.handle_exception($res);
     return self.gambit_to_p6($res);
+}
+
+method apply(**@args) {
+    self.call(|@args);
 }
 
 

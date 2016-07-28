@@ -13,4 +13,6 @@ is $gambit.run('(* 2 (fib 8))'), 42;
 
 dies-ok { $gambit.run('(+ 1 2') }, "dies on wrong expression";
 
+is $gambit.eval('(* 2 (fib 8))'), 42;
+
 done-testing;

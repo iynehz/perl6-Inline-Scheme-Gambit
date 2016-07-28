@@ -10,6 +10,7 @@ is $gambit.run('#t'), True;
 is $gambit.run('#f'), False;
 cmp-ok $gambit.run('0'), '==', 0;
 cmp-ok $gambit.run('5'), '==', 5;
+#cmp-ok $gambit.run('#x10000000000000000'), '==', 0x10000000000000000;
 cmp-ok $gambit.run('1/3'), '==', 1/3;
 cmp-ok $gambit.run('1.0'), '==', 1.0;
 cmp-ok $gambit.run('5.5'), '==', 5.5;

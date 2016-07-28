@@ -14,4 +14,6 @@ is $gambit.call('map', $gambit.run(q{(lambda (n) (fib n))}), [0 .. 8]), [0, 1, 1
 
 dies-ok { $gambit.call("+", 1, "foo") }, "dies from scheme";
 
+is $gambit.apply('fib', 8), 21;
+
 done-testing;

@@ -90,12 +90,19 @@ Returns the global Inline::Scheme::Gambit singleton. The first call to
 new() initializes the singleton. 
 
 #### method run(Str:D $code)
+#### method eval(Str:D $code)
 
 Runs $code and returns any resulting value.
 
 #### method call(Str:D $name, \*\*@args)
+#### method apply(Str:D $name, \*\*@args)
+#### method call(OpaquePointer:D $gambitfunc, \*\*@args)
+#### method apply(OpaquePointer:D $gambitfunc, \*\*@args)
 
-Calls the named function with @args, and returns any resulting value.
+If the first argument is a string, it would call the named function with
+@args, and returns any resulting value.  
+
+The first argument can also be a pointer to a scheme function.
 
 ## Contact
 
