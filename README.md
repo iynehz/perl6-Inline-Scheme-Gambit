@@ -35,6 +35,7 @@ following table.
     Gambit-C            from Perl                       to Perl
     boolean             Bool                            Bool
     integer(exact)      Int                             Int
+    bignum(exact)       not supported                   not supported
     rational(exact)     Rat                             Rat
     rational(inexact)   Num                             Num
     complex             Complex                         Complex
