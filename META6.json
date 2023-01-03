@@ -3,7 +3,7 @@
     "name" : "Inline::Scheme::Gambit",
     "license" : "Artistic-2.0",
     "version" : "0.01",
-    "author" : "github:zhouzhen1",
+    "authors" : [ "github:zhouzhen1" ],
     "description" : "Embedded Gambit-C for Perl 6",
     "depends" : [ "LibraryMake" ],
     "provides" : {
