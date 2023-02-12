@@ -30,4 +30,4 @@ endif
 	%CC% -shared -o $@ $(OBJS) %MYEXTLIB% %LIBS%
 
 test: all
-	prove -e 'perl6 -Ilib' t
+	prove -e 'raku -Ilib' t

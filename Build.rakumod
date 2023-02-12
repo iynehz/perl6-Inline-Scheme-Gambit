@@ -1,11 +1,9 @@
 use v6;
 
-use Panda::Common;
-use Panda::Builder;
 use Shell::Command;
 use LibraryMake;
 
-class Build is Panda::Builder {
+class Build {
     method build($dir) {
         my %vars = get-vars($dir);
 

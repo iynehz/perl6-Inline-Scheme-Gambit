@@ -1,0 +1,23 @@
+on:
+  push:
+    braches:
+      - master
+  pull_request:
+    braches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - uses: Raku/setup-raku@v1
+    - run: raku -V
+    - name: Install Gambit Scheme
+      run: sudo apt-get install -y gambc
+    - name: Build
+      run: |
+        LIBS="-l:libgambit.so.4" zef install .
+        zef install --/test App::Prove6
+    - name: Test
+      run: prove6 -l t

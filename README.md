@@ -1,7 +1,7 @@
 # Inline::Scheme::Gambit [![Build Status](https://travis-ci.org/zhouzhen1/perl6-Inline-Scheme-Gambit.svg?branch=master)](https://travis-ci.org/zhouzhen1/perl6-Inline-Scheme-Gambit)
 
-This is a Perl 6 module which allows execution of Gambit Scheme code from
-Perl 6 code with inspiration from other Inline:: modules like
+This is a Raku module which allows execution of Gambit Scheme code from
+Raku code with inspiration from other Inline:: modules like
 Inline::Python, Inline::Lua, Inline::Scheme::Guile, etc.
 
 ## Synopsis
@@ -29,7 +29,7 @@ Gambit-C 4, and Gambit-C 4.8.3 and 4.2.8 have been tested by the author.
 
 Values can be passed to and returned from Gambit-C. Simple types
 like boolean, integer, number, string, list, table, vector should
-work. Present mapping between Gambit-C and Perl 6 types is as
+work. Present mapping between Gambit-C and Raku types is as
 following table. 
 
     Gambit-C            from Perl                       to Perl
@@ -46,7 +46,7 @@ following table.
     other objects       OpaquePointer                   OpaquePointer
 
 Note that at present both scheme list and vector converts to Array
-in Perl 6, but through the call() method (see below) Perl 6 Array only
+in Raku, but through the call() method (see below) Raku Array only
 converts to list. 
 
 The API is incomplete and experimental. It may change in future if
@@ -70,7 +70,12 @@ variables to override the default behavior.
 For example to override gsc in case 'gsc-script' or 'gsc' is not in
 PATH, or 'gsc-script' is an incorrect symlink. 
 
-    GSC=/usr/bin/gsc panda install Inline::Scheme::Gambit
+    GSC=/usr/bin/gsc zef install Inline::Scheme::Gambit
+
+And if on your system gambit dll is not named libgambc.so, you can override
+it like below,
+
+    LIBS="-l:libgambit.so.4" zef install Inline::Scheme::Gambit
 
 Or if you would like to static link to some libgambit.a
 
