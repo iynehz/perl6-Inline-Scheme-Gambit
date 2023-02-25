@@ -261,8 +261,7 @@ multi method p6_to_gambit(Stringy:D $value) returns OpaquePointer {
 multi method p6_to_gambit(Positional:D $value) returns OpaquePointer {
     my $lst = gambit_null();
     for @$value.reverse -> $item {
-        my $gambit_item = self.p6_to_gambit($item);
-        $lst = gambit_cons($gambit_item, $lst);
+        $lst = gambit_cons(self.p6_to_gambit($item), $lst);
     }
     return $lst;
 }
