@@ -1,4 +1,6 @@
-# Inline::Scheme::Gambit [![Build Status](https://travis-ci.org/zhouzhen1/perl6-Inline-Scheme-Gambit.svg?branch=master)](https://travis-ci.org/zhouzhen1/perl6-Inline-Scheme-Gambit)
+[![Actions Status](https://github.com/iynehz/perl6-Inline-Scheme-Gambit/actions/workflows/ci.yml/badge.svg)](https://github.com/iynehz/perl6-Inline-Scheme-Gambit/actions)
+
+# Inline::Scheme::Gambit
 
 This is a Raku module which allows execution of Gambit Scheme code from
 Raku code with inspiration from other Inline:: modules like
@@ -61,7 +63,7 @@ do better on scheme list/vector/procedure/etc.
 
 ## Install
 
-    panda install Inline::Scheme::Gambit
+    zef install Inline::Scheme::Gambit
 
 It by default tries to use 'gsc-script' or 'gsc' as the gsc command,
 and dynamically link to libgambc.so. It supports several environment
@@ -79,7 +81,7 @@ it like below,
 
 Or if you would like to static link to some libgambit.a
 
-    LIBS=-lutil MYEXTLIB=/usr/lib/gambit-c/libgambit.a panda install Inline::Scheme::Gambit
+    LIBS=-lutil MYEXTLIB=/usr/lib/gambit-c/libgambit.a zef install Inline::Scheme::Gambit
 
 You can refer to Makefile.in and Build.pm to know more details.
 
