@@ -2,7 +2,7 @@
     "raku" : "6.*",
     "name" : "Inline::Scheme::Gambit",
     "license" : "Artistic-2.0",
-    "version" : "0.02",
+    "version" : "0.2.1",
     "auth" : "zef:iynehz",
     "description" : "Embedded Gambit-C for Raku",
     "depends" : [ "LibraryMake" ],
