@@ -1,9 +1,9 @@
 {
-    "perl" : "6.*",
+    "raku" : "6.*",
     "name" : "Inline::Scheme::Gambit",
     "license" : "Artistic-2.0",
     "version" : "0.02",
-    "authors" : [ "github:iynehz" ],
+    "auth" : "zef:iynehz",
     "description" : "Embedded Gambit-C for Raku",
     "depends" : [ "LibraryMake" ],
     "provides" : {
